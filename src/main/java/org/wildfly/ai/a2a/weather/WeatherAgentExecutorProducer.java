@@ -20,6 +20,9 @@ import io.a2a.spec.TextPart;
 @ApplicationScoped
 public class WeatherAgentExecutorProducer {
 
+    public WeatherAgentExecutorProducer(){
+    }
+
     @Inject
     WeatherAgent weatherAgent;
 
@@ -48,6 +51,7 @@ public class WeatherAgentExecutorProducer {
 
             // extract the text from the message
             String userMessage = extractTextFromMessage(context.getMessage());
+            System.out.println("We have an agent " + weatherAgent + " in the executor");
 
             // call the weather agent with the user's message
             String response = weatherAgent.chat(userMessage);
