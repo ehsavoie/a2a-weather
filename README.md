@@ -65,7 +65,7 @@ graph TB
 - **Java 17+**
 - **Maven 3.8+**
 - **Python 3.13+**
-- **WildFly Server** (or compatible Jakarta EE server)
+- **[uv](https://github.com/astral-sh/uv)**
 - **Google Gemini API access** (configured in WildFly)
 
 ## 🚀 Quick Start
@@ -73,30 +73,35 @@ graph TB
 ### 1. Clone and Build Java Application
 
 ```bash
-git clone <repository-url>
-cd weather
+git clone git@github.com:ehsavoie/a2a-weather.git
+cd a2a-weather
 mvn clean package
 ```
 
-### 2. Setup Python MCP Server
+### 2. Configure AI Model
 
-```bash
-cd extra-content/standalone/mcp
-pip install -e .
-```
-
-### 3. Deploy to WildFly
-
-```bash
-mvn wildfly:deploy
-```
-
-### 4. Configure AI Model
-
-Ensure your WildFly server is configured with:
+After running this command your WildFly server is configured with:
 - Gemini AI model access
 - MCP stdio tool provider configuration
 - Appropriate logging (see `src/scripts/configure_logger.cli`)
+
+Check the `ai` subsystem configuration in `target/server/standalone/configuration/standalone.xml`  to ensure everything is properly set up.
+
+To enable Gemini access, define the following environment variable:
+```bash
+export GEMINI_API_KEY=<YOUR_GEMINI_API_KEY>
+```
+
+### 3. Start Agent on WildFly
+
+The above `mvn package` command built WildFly with everything configured and the agent deployed.
+
+```bash
+./target/server/bin/standalone.sh 
+```
+
+You can use the [a2a inspector](https://github.com/a2aproject/a2a-inspector) to test and play with this agent.
+
 
 ## 💬 Usage Examples
 
@@ -143,35 +148,7 @@ weather/
 └── pom.xml                            # Maven configuration
 ```
 
-## 🌐 API Endpoints
-
-The application exposes A2A-compliant agent endpoints. The web UI currently references legacy endpoints that may need updating:
-
-- Agent capabilities: Available via A2A agent card
-- Chat interface: A2A message processing
-- Streaming responses: Server-sent events
-
-## 🧪 Development
-
-### Running in Development Mode
-
-1. **Start MCP Server**:
-   ```bash
-   cd extra-content/standalone/mcp
-   python weather_mcp.py
-   ```
-
-2. **Deploy to WildFly**:
-   ```bash
-   mvn wildfly:dev
-   ```
-
-3. **Access Application**:
-   ```
-   http://localhost:8080
-   ```
-
-### Testing Tools
+### Tools
 
 The MCP server provides three main tools:
 - `get_alerts`: Test with 2-letter state codes

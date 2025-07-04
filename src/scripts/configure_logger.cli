@@ -4,6 +4,5 @@
 /subsystem=logging/logger=dev.langchain4j.service:add(level=DEBUG)
 /subsystem=logging/logger=dev.langchain4j.model.openai:add(level=DEBUG)
 /subsystem=logging/logger=org.wildfly.extension.ai:add(level=DEBUG)
-/subsystem=logging/logger=org.jboss.weld:add(level=DEBUG)
 /subsystem=ai/mcp-client-stdio=mcp-stdio:write-attribute(name="cmd", value="uv")
-/subsystem=ai/mcp-client-stdio=mcp-stdio:write-attribute(name="args", value=[--directory,/home/ehugonne/dev/AI/examples/a2a/weather/target/server/standalone/mcp,run,weather_mcp.py])
+/subsystem=ai/mcp-client-stdio=mcp-stdio:write-attribute(name="args", value=[--directory,${basedir}/target/server/standalone/mcp,run,weather_mcp.py])

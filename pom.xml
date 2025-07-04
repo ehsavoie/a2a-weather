@@ -183,6 +183,22 @@
                 <configuration></configuration>
             </plugin>
 
+            <!--Filtering thejboss-cli script: -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.3.1</version>
+                <configuration>
+                    <outputDirectory>${basedir}/target/scripts</outputDirectory>
+                    <resources>
+                        <resource>
+                            <directory>src/scripts</directory>
+                            <filtering>true</filtering>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>
+
             <!--Build configuration for the WAR plugin: -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -214,7 +230,7 @@
                     <packagingScripts>
                         <packaging-script>
                             <scripts>
-                                <script>./src/scripts/configure_logger.cli</script>
+                                <script>${basedir}/target/scripts/configure_logger.cli</script>
                             </scripts>
                         </packaging-script>
                     </packagingScripts>
